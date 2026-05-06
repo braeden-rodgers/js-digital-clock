@@ -94,11 +94,6 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.format-btn:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;;
-}
-
 .format-btn.active {
     color: #000000;
     background: var(--accent-color);
