@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Digital Clock</title>        
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body>
+        <div class="clock-container">
+            <div class="date" id="date"></div>
+
+            <div class="clock">
+                <span id="hours">00</span>
+                <span class="colon">:</span>
+                <span id="minutes">00</span>
+                <span class="colon">:</span>
+                <span id="seconds">00</span>
+                <span id="meridiem"></span>
+            </div>
+            
+            <div class="time-format">
+                <button class="format-btn" id="format12">12-Hour</button>
+                <button class="format-btn" id="format24">24-Hour</button>
+            </div>
+        </div>
+
+        <script src="./main.js"></script>
+    </body>
+</html>
