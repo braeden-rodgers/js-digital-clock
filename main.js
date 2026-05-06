@@ -33,7 +33,7 @@ function updateTime() {
     meridiemElement.textContent = meridiem;
 }
 
-// Event listeners for the clock format buttons upon click
+// Event Listeners for time format toggle
 document.getElementById("format12").addEventListener("click", () => {
     is24HrFormat = false;
     format12Btn.classList.add('active');
