@@ -3,6 +3,9 @@ const meridiemElement = document.getElementById("meridiem");
 const format12Btn = document.getElementById("format12");
 const format24Btn = document.getElementById("format24");
 
+const toggle = document.getElementById("toggle");
+const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
 // Function that updates the time
 function updateTime() {
     const now = new Date();
@@ -47,6 +50,14 @@ format24Btn.addEventListener("click", () => {
     format12Btn.classList.remove('active');
     meridiemElement.style.display = 'none';
 });
+
+// Event listener for live changes to the OS theme 
+mediaQuery.addEventListener("change", (event) => {
+    toggle.checked = event.matches;
+});
+
+// Set initial state of dark mode toggle depending on the OS theme
+toggle.checked = mediaQuery.matches;
 
 // Initialize the clock and set the interval
 updateTime();
