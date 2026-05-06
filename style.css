@@ -30,6 +30,7 @@ body {
 }
 
 .clock-container {
+    position: relative;
     text-align: center;
     z-index: 1;
     background: var(--glass-bg);
@@ -76,6 +77,10 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+}
+
+#meridiem {
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .format-btn {
