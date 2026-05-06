@@ -33,15 +33,15 @@ function updateTime() {
     meridiemElement.textContent = meridiem;
 }
 
-// Event Listeners for time format toggle
-document.getElementById("format12").addEventListener("click", () => {
+// Event listeners for time format toggle
+format12Btn.addEventListener("click", () => {
     is24HrFormat = false;
     format12Btn.classList.add('active');
     format24Btn.classList.remove('active');
     meridiemElement.style.display = 'inline';
 });
 
-document.getElementById("format24").addEventListener("click", () => {
+format24Btn.addEventListener("click", () => {
     is24HrFormat = true;
     format24Btn.classList.add('active');
     format12Btn.classList.remove('active');
