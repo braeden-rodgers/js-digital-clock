@@ -12,7 +12,7 @@ The following screenshots are some of the inspirations for the design of this pr
 
 ![](assets/light-stream-green-macbook-pro-background.jpeg)
 
-3. Flurry Screen Saver
+2. Flurry Screen Saver
 
 ![](assets/flurry-screensaver.gif)
 
