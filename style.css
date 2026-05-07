@@ -1,19 +1,15 @@
 :root {
-    --bg-color: #dddddd;
-    --glass-bg: rgba(0, 0, 0, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --bg-color: #ffffff;
+    --light-mode-bg-color: #dddddd;
+    --dark-mode-bg-color: #151515;
     --text-color: #ffffff;
     --accent-color: rgba(255, 255, 255, 0.7);
-    --toggle-bg: #94a3b8;
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.2);
     --toggle-circle: #ffffff;
+    --toggle-bg: #94a3b8;
+    --border-radius: 20px;
     --blur-strength: 10px;
-    --radius: 20px;
-}
-
-:has(#toggle:checked) {
-    --bg-color: #151515;
-    --toggle-bg: #475569;
-    --toggle-circle: #0f172a;
 }
 
 body {
@@ -27,6 +23,8 @@ body {
     transition: all 0.3s;
 }
 
+/* SVG animation background */
+
 #svg-animation-bg-wrap {
     position: fixed;
     inset: 0;
@@ -37,6 +35,8 @@ body {
     width: 100%;
     height: 100%;
 }
+
+/* Clock container */
 
 .clock-container {
     position: relative;
@@ -50,7 +50,7 @@ body {
     ); */
     padding: 2rem 3rem;
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     backdrop-filter: blur(var(--blur-strength));
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5),
                  0 0 16px rgba(255, 255, 255, 0.3);
@@ -92,6 +92,8 @@ body {
     font-size: clamp(1.25rem, 4vw, 2.5rem);
 }
 
+/* Time format buttons */
+
 .format-btn {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
@@ -100,7 +102,7 @@ body {
     letter-spacing: 1px;
     border: none;
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: all 0.25s ease;
 }
@@ -116,12 +118,20 @@ body {
                 0 0 15px var(--accent-color);
 }
 
+/* Toggle container */
+
 .toggle-container {
     margin-top: 25px;
 }
 
 #toggle {
     display: none;
+}
+
+:has(#toggle:checked) {
+    --bg-color: var(--dark-mode-bg-color);
+    --toggle-circle: #0f172a;
+    --toggle-bg: #475569;
 }
 
 .dark-mode-toggle {
@@ -131,7 +141,7 @@ body {
     height: 30px;
     background: var(--toggle-bg);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background 0.3s;
 }
@@ -152,6 +162,8 @@ body {
     transform: translateX(30px);
 }
 
+/* Pulsing animation for colons */
+
 @keyframes pulse {
     0%,
     100% {
@@ -162,6 +174,8 @@ body {
         opacity: 1;
     }
 }
+
+/* Floating animation for the clock container */
 
 @keyframes float {
     0%,
@@ -174,8 +188,16 @@ body {
     }
 }
 
+/* Match with the OS theme upon running the program */
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: var(--light-mode-bg-color);
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #151515;
+        --bg-color: var(--dark-mode-bg-color);
     }
 }
