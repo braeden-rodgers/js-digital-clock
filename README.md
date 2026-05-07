@@ -82,7 +82,7 @@ The JavaScript file uses the JavaScript's built-in Date object to retrieve the c
 If you would like to see the live version of the project, visit:
 
 ```
-https://braeden-rodgers.github.io/js-digital-clock/
+[https://braeden-rodgers.github.io/js-digital-clock/](https://braeden-rodgers.github.io/js-digital-clock/)
 ```
 
 ---
