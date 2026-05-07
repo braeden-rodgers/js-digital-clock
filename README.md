@@ -9,9 +9,11 @@ The purpose of this project is to demonstrate fundamental front-end development 
 The following screenshots are some of the inspirations for the design of this project:
 
 1. Light Stream Green Wallpaper
+
 ![](assets/light-stream-green-macbook-pro-background.jpeg)
 
-2. Flurry Screen Saver
+3. Flurry Screen Saver
+
 ![](assets/flurry-screensaver.gif)
 
 ---
