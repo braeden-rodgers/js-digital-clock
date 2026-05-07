@@ -1,4 +1,6 @@
-let is24HrFormat = false;
+// let is24HrFormat = false;
+let is24HrFormat = localStorage.getItem("time-format") === "24";
+
 const dateElement = document.getElementById("date");
 const hoursElement = document.getElementById("hours");
 const minutesElement = document.getElementById("minutes");
@@ -47,7 +49,9 @@ function updateTime() {
 }
 
 // Function for time format toggle
-function setTimeFormat(use24Hour) {
+function setTimeFormat(use24Hour) {  
+    localStorage.setItem("time-format", use24Hour ? "24" : "12");
+    
     is24HrFormat = use24Hour;
     format12Btn.classList.toggle("active", !use24Hour);
     format24Btn.classList.toggle("active", use24Hour);
@@ -60,8 +64,8 @@ function setTimeFormat(use24Hour) {
 function startClock() {
     updateDate();
     updateTime();
-
     setTimeFormat(is24HrFormat);
+
     setInterval(updateDate, 60000);
 
     const delay = 1000 - (Date.now() % 1000);
