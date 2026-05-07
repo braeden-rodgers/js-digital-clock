@@ -1,27 +1,40 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
-    --bg-color: #ffffff;
     --light-mode-bg-color: #dddddd;
     --dark-mode-bg-color: #151515;
     --text-color: #ffffff;
     --accent-color: rgba(255, 255, 255, 0.7);
     --glass-bg: rgba(0, 0, 0, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.5);
     --toggle-circle: #ffffff;
     --toggle-bg: #94a3b8;
     --border-radius: 20px;
     --blur-strength: 10px;
+    --bg-color: var(--light-mode-bg-color);
+}
+
+body.dark {
+    --bg-color: var(--dark-mode-bg-color);
+    --toggle-circle: #0f172a;
+    --toggle-bg: #475569;
 }
 
 body {
-    color-scheme: light dark;
+    margin: 0;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: var(--text-color);
     background-color: var(--bg-color);
     font-family: Arial, Helvetica, sans-serif;
-    transition: all 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 /* SVG animation background */
@@ -43,6 +56,7 @@ body {
     position: relative;
     text-align: center;
     z-index: 1;
+    padding: 2rem 3rem;
     background: var(--glass-bg);
 
     /* More accurate glass-looking background, but generates readability issues */
@@ -51,8 +65,7 @@ body {
         rgba(255, 255, 255, 0.08),
         rgba(255, 255, 255, 0.02)
     ); */
-    
-    padding: 2rem 3rem;
+
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
     backdrop-filter: blur(var(--blur-strength));
@@ -62,27 +75,27 @@ body {
 }
 
 .date {
-    color: var(--text-color);
+    margin-bottom: 1.5rem;
     font-size: clamp(1rem, 3vw, 1.5rem);
     letter-spacing: 3px;
-    margin-bottom: 1.5rem;
 }
 
 .clock {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-color);
-    font-family: monospace;
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: 5px;
     margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 5px;
 }
 
 .colon {
     margin: 0 0.5rem;
     animation: pulse 1s infinite;
+}
+
+#meridiem {
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .time-format {
@@ -92,27 +105,25 @@ body {
     margin-top: 1.5rem;
 }
 
-#meridiem {
-    font-size: clamp(1.25rem, 4vw, 2.5rem);
-}
-
 /* Time format buttons */
 
 .format-btn {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    font-weight: 800;
     padding: 0.5rem 1rem;
+    color: var(--text-color);
+    font-weight: 600;
     letter-spacing: 1px;
-    border: none;
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 .format-btn:hover {
     background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .format-btn.active {
@@ -125,24 +136,19 @@ body {
 /* Toggle container */
 
 .theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
     margin-top: 25px;
 }
 
 .theme-icon {
-    color: var(--text-color);
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5),
-                 0 0 16px rgba(255, 255, 255, 0.3);
+    font-size: 2rem;
 }
 
-#toggle {
+#theme-toggle-input {
     display: none;
-}
-
-:has(#toggle:checked) {
-    --bg-color: var(--dark-mode-bg-color);
-    --toggle-circle: #0f172a;
-    --toggle-bg: #475569;
 }
 
 .theme-toggle {
@@ -162,14 +168,14 @@ body {
     position: absolute;
     top: 3px;
     left: 3px;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     background: var(--toggle-circle);
     border-radius: 50%;
     transition: transform 0.3s;
 }
 
-#toggle:checked + .theme-toggle::before {
+#theme-toggle-input:checked + .theme-toggle::before {
     transform: translateX(30px);
 }
 
@@ -178,7 +184,7 @@ body {
 @keyframes pulse {
     0%,
     100% {
-        opacity: 0.6;
+        opacity: 0.5;
     }
 
     50% {
@@ -199,16 +205,12 @@ body {
     }
 }
 
-/* Match with the OS theme upon running the program */
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg-color: var(--light-mode-bg-color);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: var(--dark-mode-bg-color);
+/*  Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }
