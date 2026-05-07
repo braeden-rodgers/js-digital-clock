@@ -25,12 +25,10 @@ function updateDate() {
 function updateTime() {
     const now = new Date();
 
-    // Get the components of time as strings
     let hours = now.getHours();
     const minutes = String(now.getMinutes()).padStart(2, "0");
     const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    // Determine the meridiem depending on the hour if set in 12-hr format
     let meridiem = "";
     if (!is24HrFormat) {
         meridiem = hours >= 12 ? "PM" : "AM";
@@ -39,7 +37,6 @@ function updateTime() {
 
     hours = String(hours).padStart(2, "0");
 
-    // Change the textual content for each element of time
     hoursElement.textContent = hours;
     minutesElement.textContent = minutes;
     secondsElement.textContent = seconds;
@@ -48,7 +45,6 @@ function updateTime() {
 
 // Function for time format toggle
 function setTimeFormat(use24Hour) {
-    // Cache the user's preferred time format in the local storage
     localStorage.setItem("time-format", use24Hour ? "24" : "12");
     
     is24HrFormat = use24Hour;
@@ -91,17 +87,14 @@ function setTheme(isDarkMode) {
     document.body.classList.toggle("dark", isDarkMode);
     themeToggle.checked = isDarkMode;
 
-    // Cache the user's preferred theme in the local storage
     localStorage.setItem("program-theme", isDarkMode ? "dark" : "light");
 }
-
-// Check if the preferred theme is cached in the local storage
-if (savedTheme) 
-    setTheme(savedTheme === "dark");
 
 themeToggle.addEventListener("change", (event) => {
     setTheme(themeToggle.checked);
 });
 
-// Initialize the clock
+if (savedTheme) 
+    setTheme(savedTheme === "dark");
+
 startClock();
