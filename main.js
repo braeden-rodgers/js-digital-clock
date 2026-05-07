@@ -2,7 +2,6 @@ let is24HrFormat = false;
 const meridiemElement = document.getElementById("meridiem");
 const format12Btn = document.getElementById("format12");
 const format24Btn = document.getElementById("format24");
-
 const toggle = document.getElementById("toggle");
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
