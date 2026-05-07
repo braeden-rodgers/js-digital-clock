@@ -91,15 +91,13 @@ function setTheme(isDarkMode) {
     document.body.classList.toggle("dark", isDarkMode);
     themeToggle.checked = isDarkMode;
 
-    // Cache the user's p"referred theme in the local storage
+    // Cache the user's preferred theme in the local storage
     localStorage.setItem("program-theme", isDarkMode ? "dark" : "light");
 }
 
 // Check if the preferred theme is cached in the local storage
 if (savedTheme) 
     setTheme(savedTheme === "dark");
-else 
-    setTheme(mediaQuery.matches);
 
 themeToggle.addEventListener("change", (event) => {
     setTheme(themeToggle.checked);
