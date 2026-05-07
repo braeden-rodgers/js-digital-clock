@@ -1,22 +1,13 @@
-<!-- 
-HTML background adapted from:
-"SVG Animation Background" by Álvaro (@alvarotrigo) 
-
-https://codepen.io/alvarotrigo/pen/qBMMyxz
-
-License: MIT
--->
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Clock</title>        
+        <title>macOS-Inspired Clock</title>        
         <link rel="stylesheet" href="./style.css">
     </head>
 
     <body>
-        <!-- SVG Animation HTML Background -->
         <div id="svg-animation-bg-wrap">
             <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
                 <defs> 
@@ -56,7 +47,6 @@ License: MIT
             </svg>
         </div>
 
-        <!-- Clock -->
         <div class="clock-container">
             <div class="date" id="date"></div>
 
@@ -70,17 +60,18 @@ License: MIT
             </div>
             
             <div class="time-format">
-                <button class="format-btn active" id="format12">12-Hour</button>
-                <button class="format-btn" id="format24">24-Hour</button>
+                <button class="format-btn active" id="time-format-12">12-Hour</button>
+                <button class="format-btn" id="time-format-24">24-Hour</button>
             </div>
 
-            <!-- Dark mode toggle -->
-            <div class="toggle-container">
-                <input type="checkbox" id="toggle">
-                <label for="toggle" class="dark-mode-toggle"></label>
+            <div class="theme-toggle-container">
+                <span class="theme-icon">&#9728</span>
+                <input type="checkbox" id="theme-toggle-input">
+                <label for="theme-toggle-input" class="theme-toggle"></label>
+                <span class="theme-icon">&#9790</span>
             </div>
         </div>
 
-        <script src="./main.js"></script>
+        <script src="./script.js"></script>
     </body>
 </html>

@@ -1,31 +1,43 @@
-:root {
-    --bg-color: #dddddd;
-    --glass-bg: rgba(0, 0, 0, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --text-color: #ffffff;
-    --accent-color: rgba(255, 255, 255, 0.7);
-    --toggle-bg: #94a3b8;
-    --toggle-circle: #ffffff;
-    --blur-strength: 10px;
-    --radius: 20px;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-:has(#toggle:checked) {
-    --bg-color: #151515;
-    --toggle-bg: #475569;
+:root {
+    --light-mode-bg-color: #dddddd;
+    --dark-mode-bg-color: #151515;
+    --text-color: #ffffff;
+    --accent-color: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --toggle-circle: #ffffff;
+    --toggle-bg: #94a3b8;
+    --border-radius: 20px;
+    --blur-strength: 10px;
+    --bg-color: var(--light-mode-bg-color);
+}
+
+body.dark {
+    --bg-color: var(--dark-mode-bg-color);
     --toggle-circle: #0f172a;
+    --toggle-bg: #475569;
 }
 
 body {
+    margin: 0;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: var(--text-color);
     background-color: var(--bg-color);
     font-family: Arial, Helvetica, sans-serif;
-    transition: all 0.3s;
+    transition: background-color 0.3s ease;
 }
+
+/* SVG animation background */
 
 #svg-animation-bg-wrap {
     position: fixed;
@@ -38,19 +50,24 @@ body {
     height: 100%;
 }
 
+/* Clock container */
+
 .clock-container {
     position: relative;
     text-align: center;
     z-index: 1;
+    padding: 2rem 3rem;
     background: var(--glass-bg);
+
+    /* More accurate glass-looking background, but generates readability issues */
     /* background: linear-gradient(
         135deg,
         rgba(255, 255, 255, 0.08),
         rgba(255, 255, 255, 0.02)
     ); */
-    padding: 2rem 3rem;
+
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     backdrop-filter: blur(var(--blur-strength));
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5),
                  0 0 16px rgba(255, 255, 255, 0.3);
@@ -58,27 +75,27 @@ body {
 }
 
 .date {
-    color: var(--text-color);
+    margin-bottom: 1.5rem;
     font-size: clamp(1rem, 3vw, 1.5rem);
     letter-spacing: 3px;
-    margin-bottom: 1.5rem;
 }
 
 .clock {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-color);
-    font-family: monospace;
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: 5px;
     margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 5px;
 }
 
 .colon {
     margin: 0 0.5rem;
     animation: pulse 1s infinite;
+}
+
+#meridiem {
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .time-format {
@@ -88,25 +105,25 @@ body {
     margin-top: 1.5rem;
 }
 
-#meridiem {
-    font-size: clamp(1.25rem, 4vw, 2.5rem);
-}
+/* Time format buttons */
 
 .format-btn {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    font-weight: 800;
     padding: 0.5rem 1rem;
+    color: var(--text-color);
+    font-weight: 600;
     letter-spacing: 1px;
-    border: none;
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 .format-btn:hover {
     background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .format-btn.active {
@@ -116,52 +133,66 @@ body {
                 0 0 15px var(--accent-color);
 }
 
-.toggle-container {
+/* Toggle container */
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
     margin-top: 25px;
 }
 
-#toggle {
+.theme-icon {
+    font-size: 2rem;
+}
+
+#theme-toggle-input {
     display: none;
 }
 
-.dark-mode-toggle {
+.theme-toggle {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 30px;
     background: var(--toggle-bg);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background 0.3s;
 }
 
-.dark-mode-toggle::before {
+.theme-toggle::before {
     content: "";
     position: absolute;
     top: 3px;
     left: 3px;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     background: var(--toggle-circle);
     border-radius: 50%;
     transition: transform 0.3s;
 }
 
-#toggle:checked + .dark-mode-toggle::before {
+#theme-toggle-input:checked + .theme-toggle::before {
     transform: translateX(30px);
 }
+
+/* Pulsing animation for colons */
 
 @keyframes pulse {
     0%,
     100% {
-        opacity: 0.6;
+        opacity: 0.5;
     }
 
     50% {
         opacity: 1;
     }
 }
+
+/* Floating animation for the clock container */
 
 @keyframes float {
     0%,
@@ -174,8 +205,12 @@ body {
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #151515;
+/*  Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }

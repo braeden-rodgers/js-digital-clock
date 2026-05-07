@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a lightweight digital clock built using vanilla Javascript, HTML, and CSS. This application is designed specifically to resemble the minimial and glassy aesthetic of macOS.
+This project is a lightweight digital clock built using vanilla Javascript, HTML, and CSS. This application is designed to resemble the minimial and glassy aesthetic of macOS Tahoe 26.
 
 The purpose of this project is to demonstrate fundamental front-end development skills, which includes DOM manipulation, time-based updates, and UI styling inspired by a real-world interface.
 
@@ -23,12 +23,18 @@ The following screenshots are some of the inspirations for the design of this pr
 ### Preview
 
 Light Mode:
-![](assets/light-mode-digital-clock.png)
+![](assets/light-mode-clock.png)
 
 Dark Mode:
-![](assets/dark-mode-digital-clock.png)
+![](assets/dark-mode-clock.png)
 
-### Live demo
+Reduce Motion Disabled:
+![](assets/reduce-motion-off.gif)
+
+Reduce Motion Enabled:
+![](assets/reduce-motion-on.gif)
+
+### Live Demo
 
 [Click here!](https://braeden-rodgers.github.io/js-digital-clock/)
 
@@ -36,10 +42,10 @@ Dark Mode:
 
 * Real-time clock that updates every second
 * Supports 12-hour and 24-hour time formats
-* macOS-inspired design and animation
+* macOS-inspired design and animations
 * Light/dark mode toggle
-* Animations and transitions for a smooth, tranquil experience
-* Synchronization between the OS theme and program theme
+* Animations and transitions developed for a smooth, tranquil experience
+* Reduce motion support for accessbility
 
 ## Project Structure
 
@@ -47,7 +53,7 @@ Dark Mode:
 js-digital-clock/
 │── index.html      # Main HTML structure and SVG animation implementation
 │── style.css       # macOS-inspired styling
-│── main.js         # Clock logic and time updates
+│── script.js       # Clock and date logic, time updates, theme toggle, and caching preferences
 └── assets/         # Additional files (e.g., images)
 ```
 
@@ -58,10 +64,17 @@ js-digital-clock/
 The JavaScript file uses the JavaScript's built-in Date object to retrieve the current system time.
 
 * Rotating gradients are handled in HTML
-* Function `updateTime` extracts the date, hours, minutes, and seconds from the `Date` object
+* JSS handles the date, time, and theme components separately
+* Function `updateDate` extracts the date from the Date object and creates a formatted string
+* Function `updateTime` extracts the hours, minutes, and seconds from the `Date` object and determines the meridiem if the 12-hour format is used
 * Function `updateTime` also formats the time based on the user's selected format
-* Method `setInterval` is used on `updateTime` to update the time every second (`1000ms`)
-* Visuals and layout are handled in CSS along with the dark mode toggle
+* Function `setTimeFormat` handles the time format toggle and caches the user's preference to the local storage
+* Event listeners are implemented for the hour format buttons to update the styling within the buttons 
+* Function `startClock` initiates the clock and syncs with real seconds
+* Method `setInterval` is used on `updateDate` to update the date every day
+* Method `setTimeout` is used on `updateTime` to update the time every second
+* Function `setTheme` is used to handle light/dark mode toggle and stores the user's theme preference to local storage
+* Visuals and layout are handled in CSS
 
 ---
 
@@ -75,11 +88,11 @@ The JavaScript file uses the JavaScript's built-in Date object to retrieve the c
    git clone https://github.com/braeden-rodgers/js-digital-clock.git
    ```
 2. Navigate to the project directory
-3. Open the HTML file `index.html` in your browser
+3. Open the HTML file `index.html` in your preferred browser (e.g, FireFox, Google Chrome, etc.)
 
-### Live Version
+### Live Demo
 
-If you would like to see the live version of the project, visit:
+As mentioned before, if you would like to see the live version of the project, visit the following link:
 
 ```
 https://braeden-rodgers.github.io/js-digital-clock/
@@ -87,12 +100,11 @@ https://braeden-rodgers.github.io/js-digital-clock/
 
 ---
 
-## Improvements
+## Possible Improvements
 
 * Add timezone selection support
 * Implement alarm and notification features
-* Enhance the design
-* Include an icon
+* Implement weather API
 
 ---
 
@@ -102,12 +114,14 @@ https://braeden-rodgers.github.io/js-digital-clock/
 * Date and time formatting
 * JavaScript's built-in timing methods
 * CSS layout and UI design
+* Dynamic state handling
+* Cache data in the browser via `localStorage`
 
 ---
 
 ## Attribution
 
-This project uses a background animation to achieve the macOS aesthetics featuring sophisticated gradients based on:
+This project uses a background animation to achieve the macOS-like aesthetic featuring sophisticated gradients based on:
 
 ["SVG Animation Background" by Álvaro (@alvarotrigo)](https://codepen.io/alvarotrigo/pen/qBMMyxz)
 
@@ -119,7 +133,5 @@ License: MIT
 
 ## Acknowledgments
 
-* Inspired by the macOS visual design
+* Inspired by the macOS Tahoe 26 visual design
 * Built as a practice project for front-end fundamentals
-
----
