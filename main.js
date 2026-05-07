@@ -1,26 +1,24 @@
-// let is24HrFormat = false;
+const savedTheme = localStorage.getItem("program-theme");
 let is24HrFormat = localStorage.getItem("time-format") === "24";
+const dateFormatter = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long"
+};
 
 const dateElement = document.getElementById("date");
 const hoursElement = document.getElementById("hours");
 const minutesElement = document.getElementById("minutes");
 const secondsElement = document.getElementById("seconds");
 const meridiemElement = document.getElementById("meridiem");
-const format12Btn = document.getElementById("format12");
-const format24Btn = document.getElementById("format24");
-const toggle = document.getElementById("toggle");
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const format12Btn = document.getElementById("time-format-12");
+const format24Btn = document.getElementById("time-format-24");
+const themeToggle = document.getElementById("theme-toggle-input");
 
 // Function that updates the date
 function updateDate() {
-    dateElement.textContent = new Date().toLocaleDateString("en-US", 
-        {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            weekday: "long"
-        }
-    );
+    dateElement.textContent = new Date().toLocaleDateString("en-US", dateFormatter);
 }
 
 // Function that updates the time
@@ -49,16 +47,28 @@ function updateTime() {
 }
 
 // Function for time format toggle
-function setTimeFormat(use24Hour) {  
+function setTimeFormat(use24Hour) {
+    // Cache the user's preferred time format in the local storage
     localStorage.setItem("time-format", use24Hour ? "24" : "12");
     
     is24HrFormat = use24Hour;
+
     format12Btn.classList.toggle("active", !use24Hour);
     format24Btn.classList.toggle("active", use24Hour);
+
     meridiemElement.hidden = use24Hour;
 
     updateTime();
 }
+
+// Event listeners for time format toggle
+format12Btn.addEventListener("click", () => {
+    setTimeFormat(false);
+});
+
+format24Btn.addEventListener("click", () => {
+    setTimeFormat(true);
+});
 
 // Function to start the clock and sync with real seconds
 function startClock() {
@@ -76,19 +86,24 @@ function startClock() {
     }, delay);
 }
 
-// Event listeners for time format toggle
-format12Btn.addEventListener("click", () => {
-    setTimeFormat(false);
+// Function for setting the program theme
+function setTheme(isDarkMode) {
+    document.body.classList.toggle("dark", isDarkMode);
+    themeToggle.checked = isDarkMode;
+
+    // Cache the user's p"referred theme in the local storage
+    localStorage.setItem("program-theme", isDarkMode ? "dark" : "light");
+}
+
+// Check if the preferred theme is cached in the local storage
+if (savedTheme) 
+    setTheme(savedTheme === "dark");
+else 
+    setTheme(mediaQuery.matches);
+
+themeToggle.addEventListener("change", (event) => {
+    setTheme(themeToggle.checked);
 });
 
-format24Btn.addEventListener("click", () => {
-    setTimeFormat(true);
-});
-
-// Event listener for live changes to the OS theme 
-mediaQuery.addEventListener("change", (event) => {
-    toggle.checked = event.matches;
-});
-
-toggle.checked = mediaQuery.matches;
+// Initialize the clock
 startClock();
